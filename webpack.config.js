@@ -31,17 +31,34 @@ const developmentConfig = () => {
     devServer: {
       //Enable history AOI fallback so HTML5 History API based
      // routing works. Good for complex setups.
-     historyApiFallback: true,
-     
+      historyApiFallback: true,
+
      // Display only erros to reduce te aount of output.
-     stats: 'errors-only',
-     
+      stats: 'errors-only',
+
      // Parse host and port from env to allow customization.
-     host: process.env.HOST, // Defaults to 'localhost'
-     port: process.env.PORT, //Defaults to 8080
+      host: process.env.HOST, // Defaults to 'localhost'
+      port: process.env.PORT, //Defaults to 8080
+      overlay: {
+        errors: true,
+        warningns: true,
+      },
+  },
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          enforce: 'pre',
+
+          loader: 'eslint-loader',
+          options: {
+            emitWarning: true,
+          },
+        },
+      ],
     },
   };
-  
+
   return Object.assign(
     {},
     commonConfig,
